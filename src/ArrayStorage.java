@@ -12,25 +12,29 @@ public class ArrayStorage {
             storage[i] = null;
         }
         countOfNotNullResumes = 0;
-
     }
 
     void save(Resume r) {
-        if (!Arrays.asList(getAll()).contains(r)) {
+        for (Resume resume : getAll()) {
+            if (resume.uuid.equals(r.uuid)) {
+                System.out.println("That UUID already exists");
+                return;
+            }
+        }
+        if (r.uuid != null) {
             storage[countOfNotNullResumes] = r;
             countOfNotNullResumes++;
         }
     }
 
+
     Resume get(String uuid) {
-        Resume r = null;
         for (int i = 0; i < countOfNotNullResumes; i++) {
             if (storage[i].uuid.equals(uuid)) {
-                r = storage[i];
-                break;
+                return storage[i];
             }
         }
-        return r;
+        return null;
     }
 
     void delete(String uuid) {
