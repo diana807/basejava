@@ -1,24 +1,30 @@
+import java.util.Arrays;
+
 /**
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    Resume[] storage = new Resume[10000];
+    private Resume[] storage = new Resume[10000];
+    private int countOfNotNullResumes = 0;
 
     void clear() {
-        for (int i = 0; i < size(); i++) {
+        for (int i = 0; i < countOfNotNullResumes; i++) {
             storage[i] = null;
         }
+        countOfNotNullResumes = 0;
+
     }
 
     void save(Resume r) {
-        if (get(r.uuid)==null) {
-            storage[size()] = r;
+        if (!Arrays.asList(getAll()).contains(r)) {
+            storage[countOfNotNullResumes] = r;
+            countOfNotNullResumes++;
         }
     }
 
     Resume get(String uuid) {
         Resume r = null;
-        for (int i = 0; i < size(); i++) {
+        for (int i = 0; i < countOfNotNullResumes; i++) {
             if (storage[i].uuid.equals(uuid)) {
                 r = storage[i];
                 break;
@@ -28,35 +34,25 @@ public class ArrayStorage {
     }
 
     void delete(String uuid) {
-        for (int i = 0; i < size(); i++) {
+        for (int i = 0; i < countOfNotNullResumes; i++) {
             if (storage[i].uuid.equals(uuid)) {
-                while(i<size()){
-                    storage[i]=storage[i+1];
+                while (i < countOfNotNullResumes) {
+                    storage[i] = storage[i + 1];
                     i++;
                 }
+                countOfNotNullResumes--;
+                break;
             }
-            break;
         }
     }
 
-    /**
-     * @return array, contains only Resumes in storage (without null)
-     */
+
     Resume[] getAll() {
-        Resume[] resumesNotNull = new Resume[size()];
-        for (int i = 0; i < size(); i++) {
-            resumesNotNull[i] = storage[i];
-        }
-        return resumesNotNull;
+        return Arrays.copyOf(storage, countOfNotNullResumes);
     }
 
     int size() {
-        int count = 0;
-        for (Resume r : storage) {
-            if (r != null) count++;
-            else break;
-        }
-        return count;
+        return countOfNotNullResumes;
     }
 }
 
