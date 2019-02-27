@@ -12,16 +12,14 @@ public class ArrayStorage {
     private int size = 0;
 
     public void clear() {
-        for (int i = 0; i < size; i++) {
-            storage[i] = null;
-        }
+        Arrays.fill(storage,0,size,null);
         size = 0;
     }
 
     public void save(Resume r) {
         for (Resume resume : getAll()) {
             if (resume.getUuid().equals(r.getUuid())) {
-                System.out.println("That UUID already exists");
+                System.out.println("This UUID already exists");
                 return;
             }
         }
@@ -42,6 +40,7 @@ public class ArrayStorage {
     }
 
     public void delete(String uuid) {
+
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {
                 while (i < size) {
@@ -54,6 +53,10 @@ public class ArrayStorage {
         }
     }
 
+    public void update(Resume resume) {
+        //реализовать, сначала проверка есть ли такое резюме
+    }
+
 
     public Resume[] getAll() {
         return Arrays.copyOf(storage, size);
@@ -61,6 +64,15 @@ public class ArrayStorage {
 
     public int size() {
         return size;
+    }
+    public boolean isExist(String uuid){
+        for (int i = 0; i < size; i++) {
+            if (uuid.equals(storage[i].getUuid())){
+            return true;
+            }
+        }
+        return false;
+
     }
 }
 
