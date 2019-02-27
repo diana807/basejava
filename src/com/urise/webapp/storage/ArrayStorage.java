@@ -12,23 +12,20 @@ public class ArrayStorage {
     private int size = 0;
 
     public void clear() {
-        Arrays.fill(storage,0,size,null);
+        Arrays.fill(storage, 0, size, null);
         size = 0;
     }
 
     public void save(Resume r) {
-        for (Resume resume : getAll()) {
-            if (resume.getUuid().equals(r.getUuid())) {
-                System.out.println("This UUID already exists");
-                return;
-            }
+        if (isExist(r.getUuid())) {
+            System.out.println("This UUID already exists");
+            return;
         }
         if (r.getUuid() != null) {
             storage[size] = r;
             size++;
         }
     }
-
 
     public Resume get(String uuid) {
         for (int i = 0; i < size; i++) {
@@ -40,15 +37,18 @@ public class ArrayStorage {
     }
 
     public void delete(String uuid) {
-
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                while (i < size) {
-                    storage[i] = storage[i + 1];
-                    i++;
+        if (!isExist(uuid)) {
+            System.out.println("This UUID doesn't exist");
+        } else {
+            for (int i = 0; i < size; i++) {
+                if (storage[i].getUuid().equals(uuid)) {
+                    while (i < size) {
+                        storage[i] = storage[i + 1];
+                        i++;
+                    }
+                    size--;
+                    break;
                 }
-                size--;
-                break;
             }
         }
     }
@@ -65,10 +65,11 @@ public class ArrayStorage {
     public int size() {
         return size;
     }
-    public boolean isExist(String uuid){
+
+    public boolean isExist(String uuid) {
         for (int i = 0; i < size; i++) {
-            if (uuid.equals(storage[i].getUuid())){
-            return true;
+            if (uuid.equals(storage[i].getUuid())) {
+                return true;
             }
         }
         return false;
