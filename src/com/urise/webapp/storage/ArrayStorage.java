@@ -10,6 +10,7 @@ import java.util.Arrays;
 public class ArrayStorage {
     private Resume[] storage = new Resume[10_000];
     private int size = 0;
+    private int index = 0;
 
     public void clear() {
         Arrays.fill(storage, 0, size, null);
@@ -17,10 +18,11 @@ public class ArrayStorage {
     }
 
     public void save(Resume r) {
-        if (getIndex(r.getUuid()) >= 0) {
+        index = getIndex(r.getUuid());
+        if (index >= 0) {
             System.out.println("This UUID already exists");
             return;
-        } else if (getIndex(r.getUuid()) == (storage.length - 1)) {
+        } else if (index == (storage.length - 1)) {
             System.out.println("sorry, doesn't have enought place");
         } else {
             storage[size] = r;
@@ -29,8 +31,9 @@ public class ArrayStorage {
     }
 
     public Resume get(String uuid) {
-        if (getIndex(uuid) >= 0) {
-            return storage[getIndex(uuid)];
+        index = getIndex(uuid);
+        if (index >= 0) {
+            return storage[index];
         } else {
             System.out.println("This UUID doesn't exist");
             return null;
@@ -38,25 +41,25 @@ public class ArrayStorage {
     }
 
     public void delete(String uuid) {
-        if (getIndex(uuid) < 0) {
+        index = getIndex(uuid);
+        if (index < 0) {
             System.out.println("This UUID doesn't exist");
         } else {
-            int i = getIndex(uuid);
-            while (i < size - 1) {
-                storage[i] = storage[i + 1];
-                storage[i + 1] = null;
-                i++;
+            while (index < size - 1) {
+                storage[index] = storage[index + 1];
+                storage[index + 1] = null;
+                index++;
             }
             size--;
         }
     }
 
     public void update(Resume resume) {
-
-        if (getIndex(resume.getUuid())<0)
-        {System.out.println("This UUID doesn't exist"); }
-        else {
-            storage[getIndex(resume.getUuid())] = resume;
+        index = getIndex(resume.getUuid());
+        if (index < 0) {
+            System.out.println("This UUID doesn't exist");
+        } else {
+            storage[index] = resume;
         }
     }
 
@@ -66,12 +69,6 @@ public class ArrayStorage {
 
     public int size() {
         return size;
-    }
-
-    private boolean isExist(String uuid) {
-        if (getIndex(uuid) >= 0) {
-            return true;
-        } else return false;
     }
 
     private int getIndex(String uuid) {
