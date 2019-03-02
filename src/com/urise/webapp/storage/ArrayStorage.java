@@ -52,18 +52,13 @@ public class ArrayStorage {
     }
 
     public void update(Resume resume) {
-        if (!isExist(resume.getUuid())) {
-            System.out.println("This UUID doesn't exist");
-        } else {
-            for (int i = 0; i < size; i++) {
-                if (storage[i].getUuid().equals(resume.getUuid())) {
-                    storage[i] = resume;
-                    break;
-                }
-            }
+
+        if (getIndex(resume.getUuid())<0)
+        {System.out.println("This UUID doesn't exist"); }
+        else {
+            storage[getIndex(resume.getUuid())] = resume;
         }
     }
-
 
     public Resume[] getAll() {
         return Arrays.copyOf(storage, size);
