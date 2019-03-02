@@ -18,12 +18,11 @@ public class ArrayStorage {
     }
 
     public void save(Resume r) {
-        index = getIndex(r.getUuid());
-        if (index >= 0) {
+        if (getIndex(r.getUuid()) >= 0) {
             System.out.println("This UUID already exists");
             return;
-        } else if (index == (storage.length - 1)) {
-            System.out.println("sorry, doesn't have enought place");
+        } else if (size == storage.length) {
+            System.out.println("Storage overflow");
         } else {
             storage[size] = r;
             size++;
