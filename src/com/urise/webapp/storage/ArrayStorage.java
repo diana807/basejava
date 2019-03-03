@@ -10,7 +10,6 @@ import java.util.Arrays;
 public class ArrayStorage {
     private Resume[] storage = new Resume[10_000];
     private int size = 0;
-    private int index = 0;
 
     public void clear() {
         Arrays.fill(storage, 0, size, null);
@@ -20,7 +19,7 @@ public class ArrayStorage {
     public void save(Resume r) {
         if (getIndex(r.getUuid()) >= 0) {
             System.out.println("This UUID already exists");
-            return;
+            ;
         } else if (size == storage.length) {
             System.out.println("Storage overflow");
         } else {
@@ -30,7 +29,7 @@ public class ArrayStorage {
     }
 
     public Resume get(String uuid) {
-        index = getIndex(uuid);
+        int index = getIndex(uuid);
         if (index >= 0) {
             return storage[index];
         } else {
@@ -40,21 +39,19 @@ public class ArrayStorage {
     }
 
     public void delete(String uuid) {
-        index = getIndex(uuid);
+        int index = getIndex(uuid);
         if (index < 0) {
             System.out.println("This UUID doesn't exist");
         } else {
-            while (index < size - 1) {
-                storage[index] = storage[index + 1];
-                storage[index + 1] = null;
-                index++;
-            }
+            storage[index] = storage[size - 1];
+            storage[size - 1] = null;
             size--;
         }
     }
 
+
     public void update(Resume resume) {
-        index = getIndex(resume.getUuid());
+        int index = getIndex(resume.getUuid());
         if (index < 0) {
             System.out.println("This UUID doesn't exist");
         } else {
