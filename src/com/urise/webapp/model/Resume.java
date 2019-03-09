@@ -16,6 +16,7 @@ public class Resume implements Comparable<Resume> {
         this.uuid = uuid;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -30,7 +31,6 @@ public class Resume implements Comparable<Resume> {
         return uuid.hashCode();
     }
 
-
     @Override
     public String toString() {
         return uuid;
@@ -41,5 +41,3 @@ public class Resume implements Comparable<Resume> {
         return uuid.compareTo(o.uuid);
     }
 }
-
-
