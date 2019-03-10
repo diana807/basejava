@@ -11,7 +11,6 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         index = Math.abs(index + 1);
         System.arraycopy(storage, index, storage, index + 1, size - index);
         storage[index] = r;
-        size++;
     }
 
     @Override
@@ -24,7 +23,5 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     @Override
     protected void remove(int index) {
         System.arraycopy(storage, index + 1, storage, index, size - index - 1);
-        storage[size - 1] = null;
-        size--;
     }
 }
