@@ -8,9 +8,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class AbstractArrayStorageTest {
+public abstract class AbstractArrayStorageTest {
+    private Storage storage;
 
-    private Storage storage = new ArrayStorage();
+    public AbstractArrayStorageTest(Storage storage) {
+        this.storage = storage;
+    }
+
     public static final String UUID_1 = "uuid1";
     public static final String UUID_2 = "uuid2";
     public static final String UUID_3 = "uuid3";
@@ -38,6 +42,7 @@ public class AbstractArrayStorageTest {
 
     @Test
     public void get() {
+        System.out.println(storage.get("uuid1"));
     }
 
     @Test(expected = NotExistStorageException.class)
