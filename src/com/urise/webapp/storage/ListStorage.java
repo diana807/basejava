@@ -15,7 +15,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected void doSave(Resume r, Object searchKey) {
-        storage.add((Integer) searchKey, r);
+        storage.add(r);
     }
 
     @Override
@@ -25,7 +25,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected boolean isExist(Object searchKey) {
-        return (searchKey != null);
+        return ((Integer)searchKey >= 0);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class ListStorage extends AbstractStorage {
                 return storage.indexOf(resume);
             }
         }
-        return null;
+        return -1;
     }
 
     @Override
