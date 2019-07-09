@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class MapStorage extends AbstractStorage {
 
-    Map<String, Resume> storage = new HashMap<>();
+    private Map<String, Resume> storage = new HashMap<>();
 
 
     @Override
@@ -49,13 +49,7 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     public Resume[] getAll() {
-        Resume[] resumes = new Resume[storage.size()];
-        int i = 0;
-        for (Map.Entry<String, Resume> entry : storage.entrySet()) {
-            resumes[i] = entry.getValue();
-            i++;
-            if (i>storage.size() ){break;}
-        }
+        Resume[] resumes = storage.values().toArray(new Resume[storage.size()]);
         Arrays.sort(resumes);
         return resumes;
     }
@@ -65,4 +59,5 @@ public class MapStorage extends AbstractStorage {
         return storage.size();
     }
 }
+
 
