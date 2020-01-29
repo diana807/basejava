@@ -8,7 +8,10 @@ public class ListSection extends Section {
 
     public static final long serialVersionUID = 1L;
 
-    private final List<String> items;
+    public ListSection() {
+    }
+
+    private List<String> items;
 
     public ListSection (String... items){this(Arrays.asList(items));
     }
