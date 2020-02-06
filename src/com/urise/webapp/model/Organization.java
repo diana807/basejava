@@ -20,6 +20,15 @@ import static com.urise.webapp.util.DateUtil.of;
 public class Organization implements Serializable {
     public static final long serialVersionUID = 1L;
 
+    public List<Position> getPositions() {
+        return positions;
+    }
+
+    public Link getHomePage() {
+
+        return homePage;
+    }
+
     private Link homePage;
 
     public Organization() {
@@ -76,6 +85,22 @@ public class Organization implements Serializable {
         }
 
 
+        public LocalDate getStartDate() {
+            return startDate;
+        }
+
+        public LocalDate getEndDate() {
+            return endDate;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
         public Position() {
         }
 
@@ -86,7 +111,7 @@ public class Organization implements Serializable {
             this.startDate = startDate;
             this.endDate = endDate;
             this.title = title;
-            this.description = description;
+            this.description = description==null?"":description;
         }
 
         @Override
