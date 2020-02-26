@@ -20,6 +20,8 @@ import static com.urise.webapp.util.DateUtil.of;
 public class Organization implements Serializable {
     public static final long serialVersionUID = 1L;
 
+    public static final Organization EMPTY = new Organization("", "", Position.EMPTY);
+
     public List<Position> getPositions() {
         return positions;
     }
@@ -50,25 +52,26 @@ public class Organization implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Organization that = (Organization) o;
-        return Objects.equals(homePage, that.homePage);
+        return Objects.equals(homePage, that.homePage) &&
+                Objects.equals(positions, that.positions);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(homePage);
+        return Objects.hash(homePage, positions);
     }
 
     @Override
     public String toString() {
-        return "Organization{" +
-                "homePage=" + homePage +
-                ", positions=" + positions +
-                '}';
+        return "Organization(" +
+                homePage +
+                ", " + positions +
+                ')';
     }
 
     @XmlAccessorType(XmlAccessType.FIELD)
     public static class Position implements Serializable {
-        public static final long serialVersionUID = 1L;
+        public static final Position EMPTY = new Position();
         @XmlJavaTypeAdapter(LocalDateAdapter.class)
         private LocalDate startDate;
         @XmlJavaTypeAdapter(LocalDateAdapter.class)
@@ -111,7 +114,7 @@ public class Organization implements Serializable {
             this.startDate = startDate;
             this.endDate = endDate;
             this.title = title;
-            this.description = description==null?"":description;
+            this.description = description == null ? "" : description;
         }
 
         @Override
@@ -132,8 +135,7 @@ public class Organization implements Serializable {
 
         @Override
         public String toString() {
-            return "Position{" +
-                    "startDate=" + startDate + ", endDate=" + endDate + ", title='" + title + '\'' + ", description='" + description + '\'' + '}';
+            return "Position(" + startDate + ',' + endDate + ',' + title + ',' + description + ')';
         }
     }
 }
